@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<title>LuxuryBroker</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0b0b0b;
+color:white;
+}
+
+header{
+background:black;
+color:gold;
+text-align:center;
+padding:25px;
+font-size:28px;
+}
+
+.container{
+width:90%;
+max-width:1100px;
+margin:auto;
+margin-top:40px;
+}
+
+.form{
+background:#141414;
+padding:20px;
+border-radius:10px;
+border:1px solid #333;
+margin-bottom:40px;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin-top:10px;
+background:#222;
+border:none;
+border-radius:6px;
+color:white;
+}
+
+button{
+background:gold;
+border:none;
+padding:10px;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.card{
+background:#141414;
+border:1px solid #333;
+padding:15px;
+border-radius:10px;
+}
+
+.card img{
+width:100%;
+border-radius:6px;
+margin-bottom:10px;
+}
+
+.whatsapp{
+display:block;
+text-align:center;
+background:#25D366;
+padding:10px;
+border-radius:6px;
+margin-top:10px;
+text-decoration:none;
+color:white;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+LuxuryBroker
+</header>
+
+<div class="container">
+
+<h2>Publicar reloj o joya</h2>
+
+<div class="form">
+
+<input id="nombre" placeholder="Nombre del artículo">
+
+<input id="marca" placeholder="Marca">
+
+<input id="precio" placeholder="Precio estimado">
+
+<textarea id="descripcion" placeholder="Descripción"></textarea>
+
+<input type="file" id="foto">
+
+<button onclick="publicar()">Publicar</button>
+
+</div>
+
+<h2>Artículos disponibles</h2>
+
+<div id="lista" class="grid"></div>
+
+</div>
+
+<script>
+
+let lista=document.getElementById("lista")
+
+function publicar(){
+
+let nombre=document.getElementById("nombre").value
+let marca=document.getElementById("marca").value
+let precio=document.getElementById("precio").value
+let descripcion=document.getElementById("descripcion").value
+let foto=document.getElementById("foto").files[0]
+
+let reader=new FileReader()
+
+reader.onload=function(e){
+
+let card=`
+
+<div class="card">
+
+<img src="${e.target.result}">
+
+<h3>${nombre}</h3>
+
+<p><b>Marca:</b> ${marca}</p>
+
+<p><b>Precio estimado:</b> ${precio}</p>
+
+<p>${descripcion}</p>
+
+<input placeholder="Tu oferta">
+
+<button onclick="alert('Oferta enviada al broker')">Enviar oferta</button>
+
+<a class="whatsapp" href="https://wa.me/541170645220" target="_blank">
+Hablar con el broker
+</a>
+
+</div>
+
+`
+
+lista.innerHTML+=card
+
+}
+
+reader.readAsDataURL(foto)
+
+}
+
+</script>
+
+</body>
+
+</html>
